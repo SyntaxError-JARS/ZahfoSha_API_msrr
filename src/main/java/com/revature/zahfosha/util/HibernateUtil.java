@@ -1,4 +1,4 @@
-package util;
+package com.revature.zahfosha.util;
 
 
 import org.hibernate.Session;

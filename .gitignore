@@ -5,3 +5,4 @@ src/main/resources/layout.txt
 src/main/resources/db.properties
 src/main/java/com/revature/zahfosha/util/ConnectionFactory.java
 src/test/java/util/ConnectionFactoryTestSuite.java
+target

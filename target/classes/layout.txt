@@ -1,0 +1,105 @@
+Notes for Azure SQL DB
+
+menu
+	-item_name, varchar 50, primary key (links to order id)
+	-cost, numeric, not null
+	-protein, varchar 20, not null
+	-is_substitutable bit (not null, false by default)
+
+order
+	-id, int, primary key (should pass as default)
+	-menu_item, varchar 50, foreign key (links to menu item_name)
+	-comment, text, can be null
+	-is_favorite, bit (not null, false by default)
+	-order_date varchar 15, not null
+	-customer_username, varchar 25, foreign key (links to customer username)
+
+Customer
+	-username, varchar 25, primary key
+	-fname, varchar 20, not null
+	-lname, varchar 20, not null
+	-“password”, varchar 32, not null
+	-balance, numeric, not null
+	-is_admin, bit (not null, false by default)
+
+credit_card
+	-cc_number, varchar 16, primary key
+	-cc_name, varchar 20, not null
+	-cvv, int, not null
+	-exp_date, varchar 15, not null
+	-zip, int, not null
+	-limit, numeric, not null
+	-customer_username, varchar 25, foreign key (links to customer username)
+
+
+________________________________________________________________________________________________________________________
+
+
+
+
+create table customer (
+	customer_username varchar(25) primary key,
+	fname varchar(20) not null,
+	lname varchar(20) not null,
+	"password" varchar(32) not null,
+	balance numeric not null,
+	is_admin bit not null
+)
+
+Customer
+    String customerUsername
+    String fName
+    String lName
+    String password
+    BigDecimal balance
+    Integer isAdmin
+
+create table orders (
+	id int primary key,
+	menu_item varchar(50) not null unique,
+	"comment" text,
+	is_favorite bit not null,
+	order_date varchar(15) not null,
+	customer_username varchar(25) not null,
+	constraint fk_customer foreign key(customer_username) references customer(customer_username)
+)
+
+Orders
+    Integer id
+    String menuItem
+    String comment
+    Integer isFavorite
+    String orderDate
+    String customerUsername
+
+create table menu (
+	menu_item varchar(50) primary key,
+	"cost" numeric not null,
+	protein varchar(20) not null,
+	is_substitutable bit not null,
+	constraint fk_orders foreign key(menu_item) references orders(menu_item)
+)
+
+Menu
+    String menuItem
+    BigDecimal cost
+    String protein
+    Integer isSubstitutable
+
+create table credit_card (
+	cc_number varchar(16) primary key,
+	cc_name varchar(20) not null,
+	cvv int not null,
+	exp_date varchar(15) not null,
+	zip int not null,
+	"limit" numeric not null,
+	customer_username varchar(25) not null,
+	constraint fk_customer foreign key(customer_username) references customer(customer_username)
+)
+
+CreditCard
+    String ccNumber
+    String ccName
+    Integer cvv
+    String expDate
+    BigDecimal limit

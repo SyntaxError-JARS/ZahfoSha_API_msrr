@@ -14,7 +14,7 @@ public interface Crudable<T> {
     T findById(String id);
 
     // Update
-    public boolean update(T updatedObj);
+    T update(T updatedObject);
 
     //Delete
     boolean delete(String id);

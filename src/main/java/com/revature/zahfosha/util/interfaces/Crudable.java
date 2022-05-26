@@ -1,4 +1,4 @@
-package com.revature.zahfosha.util;
+package com.revature.zahfosha.util.interfaces;
 
 import java.io.IOException;
 import java.util.List;

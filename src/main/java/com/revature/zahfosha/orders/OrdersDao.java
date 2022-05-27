@@ -47,11 +47,24 @@ public class OrdersDao {
                 throw new RuntimeException();
             }
 
+            followUpCreateCustomOrder(id, menuItem,comment,isFavorite, orderDate, customerUsername);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public OrdersModel followUpCreateCustomOrder(int id, String menuItem, String comment, int isFavorite, String orderDate, String customerUsername) {
+        Connection conn = ConnectionFactory.getInstance().getConnection();
+
+        try {
             String sql2 = "select * from orders where id = ?";
             PreparedStatement ps2 = conn.prepareStatement(sql2);
             ps2.setInt(1, id);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps2.executeQuery();
 
             if (!rs.next()) {
                 return null;

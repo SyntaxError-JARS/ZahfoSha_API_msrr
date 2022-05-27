@@ -25,19 +25,19 @@ public class CreditCardServlet extends HttpServlet {
         addHeads(req, resp);
     }
 
+    //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        //CREATE
     }
 
+    //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        // UPDATE
     }
 
+    //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        //DELETE
     }
 
 }

@@ -1,25 +1,22 @@
-package com.revature.zahfosha.customer;
+package com.revature.zahfosha.menu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.zahfosha.util.interfaces.Headable;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
 
-public class CustomerServlet extends HttpServlet {
+public class MenuServlet extends HttpServlet {
 
-    private final CustomerDao cDao;
+    private final MenuDao mDao;
     private final ObjectMapper mapper;
 
-
-    public CustomerServlet(CustomerDao cDao, ObjectMapper mapper) {
-        this.cDao = cDao;
+    public MenuServlet(MenuDao mDao, ObjectMapper mapper) {
+        this.mDao = mDao;
         this.mapper = mapper;
     }
 
@@ -40,6 +37,11 @@ public class CustomerServlet extends HttpServlet {
 
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+    }
+
+    //READ
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
     }
 

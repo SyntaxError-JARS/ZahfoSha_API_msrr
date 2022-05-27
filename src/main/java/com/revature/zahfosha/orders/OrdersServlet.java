@@ -25,14 +25,14 @@ public class OrdersServlet extends HttpServlet {
         addHeads(req, resp);
     }
 
+    //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        //CREATE
     }
 
+    //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        //READ
     }
 
 }

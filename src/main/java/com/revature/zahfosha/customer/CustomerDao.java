@@ -15,9 +15,7 @@ public class CustomerDao implements Crudable<CustomerModel> {
     }
 
     @Override
-    public List<CustomerModel> findAll() throws IOException {
-        return null;
-    }
+    public List<CustomerModel> findAll() throws IOException { return null; }
 
     @Override
     public CustomerModel findById(String id) {
@@ -35,4 +33,6 @@ public class CustomerDao implements Crudable<CustomerModel> {
     public boolean delete(String id) {
         return false;
     }
+
+    public boolean deleteByUsername(String customerUsername) { return false; }
 }

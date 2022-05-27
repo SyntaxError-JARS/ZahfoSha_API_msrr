@@ -14,9 +14,7 @@ public class CreditCardDao implements Crudable<CreditCardModel> {
     }
 
     @Override
-    public List<CreditCardModel> findAll() throws IOException {
-        return null;
-    }
+    public List<CreditCardModel> findAll() throws IOException { return null; }
 
     @Override
     public CreditCardModel findById(String id) {
@@ -33,10 +31,12 @@ public class CreditCardDao implements Crudable<CreditCardModel> {
         return null;
     }
 
-    // MVP - delete credit card
     @Override
     public boolean delete(String id) {
         return false;
     }
+
+    // MVP - delete credit card
+    public boolean deleteByCCNumber(String ccNumber) { return false; }
 
 }

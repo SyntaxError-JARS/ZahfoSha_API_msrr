@@ -15,21 +15,56 @@
     </properties>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <url>http://localhost:8080/manager/text</url>
-                        <server>LocalTomcat</server>
-                        <path>/poke_project</path>
-                        <update>true</update>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <!-- https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-java -->
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!--************************************************* -->
+            <!-- Deploy to Tomcat in App Service Windows -->
+            <!--************************************************* -->
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.2.0</version>
+                <configuration>
+                    <!-- Specify v2 schema -->
+                    <schemaVersion>v2</schemaVersion>
+                    <!-- App information -->
+                    <!-- SUBSCRIPTION_ID Unique ID for the subscription that deploys the app-->
+                    <subscriptionId>9cc4b7e1-da29-4fd8-8ac8-1e56252688f4</subscriptionId>
+                    <!-- RESOURCEGROUP_NAME -->
+                    <resourceGroup>sqldatabase</resourceGroup>
+                    <!-- WEBAPP_NAME -->
+                    <appName>zahfosha</appName>
+                    <!-- REGION -->
+                    <region>East US</region>
+                    <!-- Java Runtime Stack for App Service on Windows -->
+                    <runtime>
+                        <os>windows</os>
+                        <javaVersion>1.8</javaVersion>
+                        <webContainer>tomcat 9.0</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>*.war</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </deployment>
+                    <!--          DO NOT REMOVE THE PRICING TIER ITS THE CHEAPEST-->
+                    <pricingTier>B1</pricingTier>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>

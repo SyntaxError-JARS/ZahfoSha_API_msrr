@@ -17,7 +17,7 @@ public class OrdersDaoCreateCustomOrderTestSuite {
     @Test
     public void testCreateCustomOrderForOrdersDao_returnObject(){
 
-        OrdersModel actualResult = sut.createCustomOrder(1, "1", "1", 1, "1", "1");
+        OrdersModel actualResult = sut.createCustomOrder(3, "item1", "test", 0, "3", "test");
 
         System.out.println(actualResult);
 

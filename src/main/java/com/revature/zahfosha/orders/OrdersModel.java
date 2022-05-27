@@ -18,6 +18,10 @@ public class OrdersModel {
         this.customerUsername = customerUsername;
     }
 
+    public OrdersModel() {
+
+    }
+
     public Integer getId() {
         return id;
     }

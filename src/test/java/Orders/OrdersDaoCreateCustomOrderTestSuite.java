@@ -5,7 +5,7 @@ import com.revature.zahfosha.orders.OrdersModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class OrdersDaoCreateCustomOrder {
+public class OrdersDaoCreateCustomOrderTestSuite {
 
     OrdersDao sut;
 

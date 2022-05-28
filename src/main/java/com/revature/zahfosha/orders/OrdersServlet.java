@@ -32,7 +32,9 @@ public class OrdersServlet extends HttpServlet {
 
         OrdersModel addedOrder = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
 
-        String payload = mapper.writeValueAsString(addedOrder);
+        OrdersModel theOrder = oDao.followUpCreateCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
+
+        String payload = mapper.writeValueAsString(theOrder);
 
         resp.getWriter().write("Added the order, as seen below \n");
         resp.getWriter().write(payload);

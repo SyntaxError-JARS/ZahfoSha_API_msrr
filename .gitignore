@@ -6,3 +6,5 @@ src/main/resources/db.properties
 src/main/java/com/revature/zahfosha/util/ConnectionFactory.java
 src/test/java/util/ConnectionFactoryTestSuite.java
 target
+src/main/java/com/revature/zahfosha/util/ContextLoaderListener.java
+src/main/webapp/WEB-INF

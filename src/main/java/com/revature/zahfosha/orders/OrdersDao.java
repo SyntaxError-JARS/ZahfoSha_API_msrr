@@ -13,21 +13,6 @@ import java.util.List;
 
 public class OrdersDao {
 
-    // MVP - Make an order for a specific menu item
-//    @Override
-//    public OrdersModel create(OrdersModel newOrder) {
-//        return null;
-//    }
-
-    // MVP - Add a comment to the order to request a change, if it is substitutable
-//    public OrdersModel createWithComment(OrdersModel newCommentOrder) {
-//        return null;
-//    }
-
-    // MVP - Favorite an order
-//    public OrdersModel createFavoriteOrder(OrdersModel newFavoriteOrder) {
-//        return null;
-//    }
 
     // MVP - combo - make order, add comment for is substitutable, and favorite order
     public OrdersModel createCustomOrder(int id, String menuItem, String comment, int isFavorite, String orderDate, String customerUsername) {
@@ -62,10 +47,10 @@ public class OrdersDao {
 
         try {
             String sql2 = "select * from orders where id = ?";
-            PreparedStatement ps2 = conn.prepareStatement(sql2);
-            ps2.setInt(1, id);
+            PreparedStatement ps = conn.prepareStatement(sql2);
+            ps.setInt(1, id);
 
-            ResultSet rs = ps2.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
             if (!rs.next()) {
                 return null;
@@ -89,8 +74,33 @@ public class OrdersDao {
     }
 
     // MVP - View past orders by date
-    public OrdersModel findByDate(String orderDate) {
-        return null;
+    public OrdersModel viewAllByDate(String theDate){
+        Connection conn = ConnectionFactory.getInstance().getConnection();
+        try{
+            String sql = "select * from orders where order_date = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, theDate);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) { return null;}
+
+            OrdersModel order = new OrdersModel();
+
+            order.setId(rs.getInt("id"));
+            order.setMenuItem(rs.getString("menu_item"));
+            order.setComment(rs.getString("comment"));
+            order.setIsFavorite(rs.getInt("is_favorite"));
+            order.setOrderDate(rs.getString("order_date"));
+            order.setCustomerUsername(rs.getString("customer_username"));
+
+            return order;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

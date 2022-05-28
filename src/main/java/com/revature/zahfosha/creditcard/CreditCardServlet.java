@@ -28,6 +28,17 @@ public class CreditCardServlet extends HttpServlet {
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
+        CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
+
+        CreditCardModel firstResult = cDao.addCC(pass.getCcNumber(), pass.getCcName(), pass.getCvv(), pass.getExpDate(), pass.getZip(), pass.getLimit(), pass.getCustomerUsername());
+
+        CreditCardModel theObject = cDao.followUpAddCC(pass.getCcNumber());
+
+        String payload = mapper.writeValueAsString(theObject);
+
+        resp.getWriter().write("Added the credit card, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
     //UPDATE
@@ -38,6 +49,15 @@ public class CreditCardServlet extends HttpServlet {
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
+        CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
+
+        boolean deleteTrue = cDao.deleteByCCNumber(pass.getCcNumber());
+
+        String payload = mapper.writeValueAsString(deleteTrue);
+
+        resp.getWriter().write("Account was deleted, see true near bottom to verify \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
 }

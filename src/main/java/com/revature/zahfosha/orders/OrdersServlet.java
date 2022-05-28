@@ -20,19 +20,37 @@ public class OrdersServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doOptions(req, resp);
-        addHeads(req, resp);
-    }
+//    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doOptions(req, resp);
+//        addHeads(req, resp);
+//    }
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addHeads(req, resp);
+//        addHeads(req, resp);
+        OrdersDTO pass = mapper.readValue(req.getInputStream(), OrdersDTO.class);
+
+        OrdersModel addedOrder = oDao.createCustomOrder(pass.getId(), pass.getMenuItem(), pass.getComment(), pass.getIsFavorite(), pass.getOrderDate(), pass.getCustomerUsername());
+
+        String payload = mapper.writeValueAsString(addedOrder);
+
+        resp.getWriter().write("Added the order, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addHeads(req, resp);
+//        addHeads(req, resp);
+        OrdersDTO pass = mapper.readValue(req.getInputStream(), OrdersDTO.class);
+
+        OrdersModel[] orders = oDao.viewAllByDate(pass.getTheDate());
+
+        String payload = mapper.writeValueAsString(orders);
+
+        resp.getWriter().write("Orders populated, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
 }

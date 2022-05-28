@@ -8,7 +8,16 @@ public class OrdersDTO {
     private Integer isFavorite;
     private String orderDate;
     private String customerUsername;
+    private String theDate;
     //set up any custom PassInValues per init setup and getter setter setup as seen here
+
+    public String getTheDate() {
+        return theDate;
+    }
+
+    public void setTheDate(String theDate) {
+        this.theDate = theDate;
+    }
 
     public Integer getId() {
         return id;

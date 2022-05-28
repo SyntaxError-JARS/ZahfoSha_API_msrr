@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
-
 public class CreditCardServlet extends HttpServlet {
 
     private final CreditCardDao cDao;
@@ -30,8 +28,7 @@ public class CreditCardServlet extends HttpServlet {
 //        addHeads(req, resp);
         CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
 
-        CreditCardModel firstResult = cDao.addCC(pass.getCcNumber(), pass.getCcName(), pass.getCvv(), pass.getExpDate(), pass.getZip(), pass.getLimit(), pass.getCustomerUsername());
-
+        CreditCardModel firstResult = cDao.addCC(pass.getCcNumber(), pass.getCcName(), pass.getCvv(), pass.getExpDate(), pass.getZip(), pass.getLimits(), pass.getCustomerUsername());
         CreditCardModel theObject = cDao.followUpAddCC(pass.getCcNumber());
 
         String payload = mapper.writeValueAsString(theObject);
@@ -44,6 +41,16 @@ public class CreditCardServlet extends HttpServlet {
     //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
+        CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
+
+        CreditCardModel firstResult = cDao.updateCC(pass.getTableSelection(), pass.getNewCellName(), pass.getCcNumber());
+        CreditCardModel theObject = cDao.followUPUpdateCC(pass.getCcNumber());
+
+        String payload = mapper.writeValueAsString(theObject);
+
+        resp.getWriter().write("Updated the credit card, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
     //DELETE

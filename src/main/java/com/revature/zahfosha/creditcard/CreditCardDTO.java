@@ -9,7 +9,7 @@ public class CreditCardDTO {
     private Integer cvv;
     private String expDate;
     private Integer zip;
-    private BigDecimal limit;
+    private BigDecimal limits;
     private String customerUsername;
     private String tableSelection;
     private String newCellName;
@@ -89,11 +89,11 @@ public class CreditCardDTO {
         this.expDate = expDate;
     }
 
-    public BigDecimal getLimit() {
-        return limit;
+    public BigDecimal getLimits() {
+        return limits;
     }
 
-    public void setLimit(BigDecimal limit) {
-        this.limit = limit;
+    public void setLimits(BigDecimal limits) {
+        this.limits = limits;
     }
 }

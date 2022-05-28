@@ -9,16 +9,16 @@ public class CreditCardModel {
     private Integer cvv;
     private String expDate;
     private Integer zip;
-    private BigDecimal limit;
+    private BigDecimal limits;
     private String customerUsername;
 
-    public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, BigDecimal limit, String customerUsername) {
+    public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, BigDecimal limits, String customerUsername) {
         this.ccNumber = ccNumber;
         this.ccName = ccName;
         this.cvv = cvv;
         this.expDate = expDate;
         this.zip = zip;
-        this.limit = limit;
+        this.limits = limits;
         this.customerUsername = customerUsername;
     }
 
@@ -74,12 +74,12 @@ public class CreditCardModel {
         this.expDate = expDate;
     }
 
-    public BigDecimal getLimit() {
-        return limit;
+    public BigDecimal getLimits() {
+        return limits;
     }
 
-    public void setLimit(BigDecimal limit) {
-        this.limit = limit;
+    public void setLimits(BigDecimal limits) {
+        this.limits = limits;
     }
 
 
@@ -91,7 +91,7 @@ public class CreditCardModel {
                 ", cvv=" + cvv +
                 ", expDate='" + expDate + '\'' +
                 ", zip=" + zip +
-                ", limit=" + limit +
+                ", limit=" + limits +
                 ", customerUsername='" + customerUsername + '\'' +
                 '}';
     }

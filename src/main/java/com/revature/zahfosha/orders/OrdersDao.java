@@ -1,15 +1,11 @@
 package com.revature.zahfosha.orders;
 
 import com.revature.zahfosha.util.ConnectionFactory;
-import com.revature.zahfosha.util.interfaces.Crudable;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.BitSet;
-import java.util.List;
 
 public class OrdersDao {
 
@@ -74,8 +70,13 @@ public class OrdersDao {
     }
 
     // MVP - View past orders by date
-    public OrdersModel viewAllByDate(String theDate){
+    public OrdersModel[] viewAllByDate(String theDate){
         Connection conn = ConnectionFactory.getInstance().getConnection();
+
+        OrdersModel[] orders = new OrdersModel[20];
+
+        int index = 0;
+
         try{
             String sql = "select * from orders where order_date = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -84,23 +85,26 @@ public class OrdersDao {
 
             ResultSet rs = ps.executeQuery();
 
-            if (!rs.next()) { return null;}
+            while (rs.next()) {
 
-            OrdersModel order = new OrdersModel();
+                OrdersModel modelOrder = new OrdersModel();
 
-            order.setId(rs.getInt("id"));
-            order.setMenuItem(rs.getString("menu_item"));
-            order.setComment(rs.getString("comment"));
-            order.setIsFavorite(rs.getInt("is_favorite"));
-            order.setOrderDate(rs.getString("order_date"));
-            order.setCustomerUsername(rs.getString("customer_username"));
+                modelOrder.setId(rs.getInt("id"));
+                modelOrder.setMenuItem(rs.getString("menu_item"));
+                modelOrder.setComment(rs.getString("comment"));
+                modelOrder.setIsFavorite(rs.getInt("is_favorite"));
+                modelOrder.setOrderDate(rs.getString("order_date"));
+                modelOrder.setCustomerUsername(rs.getString("customer_username"));
 
-            return order;
+                orders[index] = modelOrder;
+                index++;
 
+            }
         } catch (SQLException e){
             e.printStackTrace();
             return null;
         }
+        return orders;
     }
 
 

@@ -5,6 +5,8 @@ import com.revature.zahfosha.orders.OrdersModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class OrdersDaoViewAllByDateTestSuite {
 
     OrdersDao sut;
@@ -15,9 +17,9 @@ public class OrdersDaoViewAllByDateTestSuite {
     @Test
     public void testOrderDaoViewAllByDateTestSuite_returnObjects(){
 
-        OrdersModel actualResult = sut.viewAllByDate("3");
+        OrdersModel[] actualResult = sut.viewAllByDate("10/01/1011");
 
-        System.out.println(actualResult);
+        System.out.println(Arrays.toString(actualResult));
     }
 
 }

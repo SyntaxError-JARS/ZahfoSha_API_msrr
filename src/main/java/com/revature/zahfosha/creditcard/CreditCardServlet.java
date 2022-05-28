@@ -20,24 +20,24 @@ public class CreditCardServlet extends HttpServlet {
         this.mapper = mapper;
     }
 
-    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doOptions(req, resp);
-        addHeads(req, resp);
-    }
+//    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doOptions(req, resp);
+//        addHeads(req, resp);
+//    }
 
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addHeads(req, resp);
+//        addHeads(req, resp);
     }
 
     //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addHeads(req, resp);
+//        addHeads(req, resp);
     }
 
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addHeads(req, resp);
+//        addHeads(req, resp);
     }
 
 }

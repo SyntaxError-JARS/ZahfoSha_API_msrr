@@ -8,12 +8,30 @@ public class CreditCardDTO {
     private String ccName;
     private Integer cvv;
     private String expDate;
+    private Integer zip;
     private BigDecimal limit;
+    private String customerUsername;
     private String tableSelection;
     private String newCellName;
     private String oldCellName;
     //set up any custom PassInValues per init setup and getter setter setup as seen here
 
+
+    public String getCustomerUsername() {
+        return customerUsername;
+    }
+
+    public void setCustomerUsername(String customerUsername) {
+        this.customerUsername = customerUsername;
+    }
+
+    public Integer getZip() {
+        return zip;
+    }
+
+    public void setZip(Integer zip) {
+        this.zip = zip;
+    }
 
     public String getTableSelection() {
         return tableSelection;

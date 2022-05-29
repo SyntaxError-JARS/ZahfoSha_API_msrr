@@ -108,6 +108,25 @@ public class MenuDao {
 
     //     MVP - Delete items to the menu
     public boolean deleteByMenuItem(String menuItem) {
+        Connection conn = ConnectionFactory.getInstance().getConnection();{
+            String sql = "delete from menu where menu_item = ?";
+
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, menuItem);
+
+                int checkInsert = ps.executeUpdate();
+
+                if (checkInsert == 0){
+                    throw new RuntimeException();
+                }
+
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
         return false;
     }
 

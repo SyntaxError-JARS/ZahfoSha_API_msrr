@@ -49,6 +49,15 @@ public class MenuServlet extends HttpServlet {
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
+        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
+
+        boolean deleteTrue = mDao.deleteByMenuItem(pass.getMenuItem());
+
+        String payload = mapper.writeValueAsString(deleteTrue);
+
+        resp.getWriter().write("Menu item was deleted. See true below to verify \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
     //READ

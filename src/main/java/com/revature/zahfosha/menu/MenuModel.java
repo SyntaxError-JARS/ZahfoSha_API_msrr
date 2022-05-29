@@ -16,6 +16,10 @@ public class MenuModel {
         this.isSubstitutable = isSubstitutable;
     }
 
+    public MenuModel() {
+
+    }
+
     public String getMenuItem() {
         return menuItem;
     }
@@ -40,7 +44,7 @@ public class MenuModel {
         this.protein = protein;
     }
 
-    public Integer getIsSubstitutable() {
+    public Integer getIsSubstitutable(int is_substitutable) {
         return isSubstitutable;
     }
 

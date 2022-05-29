@@ -1,5 +1,6 @@
 package com.revature.zahfosha.menu;
 
+import com.revature.zahfosha.creditcard.CreditCardModel;
 import com.revature.zahfosha.orders.OrdersModel;
 import com.revature.zahfosha.util.ConnectionFactory;
 import com.revature.zahfosha.util.interfaces.Crudable;
@@ -13,8 +14,60 @@ public class MenuDao {
 
     //    // MVP - Add items to the menu
     public MenuModel createMenu(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection();){
+            String sql = "insert into menu values (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1,menuItem);
+            ps.setBigDecimal(2, cost);
+            ps.setString(3, protein);
+            ps.setInt(4, isSubstitutable);
+
+            int checkInsert = ps.executeUpdate();
+
+            if (checkInsert == 0){
+                throw new RuntimeException();
+            }
+
+            followUpCreateMenu(menuItem);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
         return null;
     }
+
+    public MenuModel followUpCreateMenu(String menuItem) {
+        Connection conn = ConnectionFactory.getInstance().getConnection();
+
+        try {
+            String sql2 = "select * from menu where menu_item = ?";
+            PreparedStatement ps = conn.prepareStatement(sql2);
+            ps.setString(1, menuItem);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                return null;
+            }
+
+            MenuModel newMenuItem = new MenuModel();
+
+            newMenuItem.setMenuItem(rs.getString("menu_item"));
+            newMenuItem.setCost(rs.getBigDecimal("cost"));
+            newMenuItem.setProtein(rs.getString("protein"));
+            newMenuItem.setIsSubstitutable(rs.getInt("is_substitutable"));
+
+            return newMenuItem;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     //    // MVP - View all items on the menu without needing to Register or Login
     public MenuModel[] findAllMenuItems() throws IOException {

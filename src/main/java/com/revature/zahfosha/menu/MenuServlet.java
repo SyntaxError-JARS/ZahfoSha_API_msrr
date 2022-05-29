@@ -28,6 +28,17 @@ public class MenuServlet extends HttpServlet {
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
+        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
+
+        MenuModel addedItem = mDao.createMenu(pass.getMenuItem(), pass.getCost(), pass.getProtein(), pass.getIsSubstitutable());
+        MenuModel theItemObject = mDao.followUpCreateMenu(pass.getMenuItem());
+
+        String payload = mapper.writeValueAsString(theItemObject);
+
+        resp.getWriter().write("Added the new menu item, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+
     }
 
     //UPDATE
@@ -43,8 +54,6 @@ public class MenuServlet extends HttpServlet {
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
-//        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
-
         MenuModel[] items = mDao.findAllMenuItems();
 
         String payload = mapper.writeValueAsString(items);

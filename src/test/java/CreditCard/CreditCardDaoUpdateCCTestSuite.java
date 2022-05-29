@@ -16,8 +16,8 @@ public class CreditCardDaoUpdateCCTestSuite {
 
     @Test
     public void testCreditCardDaoUpdateCC_returnUpdatedObject(){
-        CreditCardModel firstResult = sut.updateCC("limits", "1200", "1111");
-        CreditCardModel actualReturnedObject = sut.followUPUpdateCC("1111");
+        CreditCardModel firstResult = sut.updateCC("credit card name", "Jacky", "8788");
+        CreditCardModel actualReturnedObject = sut.followUPUpdateCC("8788");
 
         System.out.println(firstResult);
         System.out.println(actualReturnedObject);

@@ -19,9 +19,9 @@ public class CreditCardDaoAddCCTestSuite {
     @Test
     public void CreditCardDaoAddCreditCard_returnObject(){
 
-        CreditCardModel firstResult = sut.addCC("4444", "me", 333, "20/20/2021", 55555, BigDecimal.valueOf(9000), "test");
+        CreditCardModel firstResult = sut.addCC("8888", "me", 333, "20/20/2021", 55555, BigDecimal.valueOf(9000), "test");
 
-        CreditCardModel actualResult = sut.followUpAddCC("4444");
+        CreditCardModel actualResult = sut.followUpAddCC("8888");
 
         System.out.println(firstResult);
         System.out.println(actualResult);

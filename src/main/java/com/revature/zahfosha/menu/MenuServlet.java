@@ -43,6 +43,16 @@ public class MenuServlet extends HttpServlet {
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        addHeads(req, resp);
+//        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
+
+        MenuModel[] items = mDao.findAllMenuItems();
+
+        String payload = mapper.writeValueAsString(items);
+
+        resp.getWriter().write("Menu items populated, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+
     }
 
 }

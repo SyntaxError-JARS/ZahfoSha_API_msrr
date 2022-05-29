@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MenuDaoFindAllItemsTestSuite {
 
@@ -21,6 +22,6 @@ public class MenuDaoFindAllItemsTestSuite {
 
         MenuModel[] actualResults = sut.findAllMenuItems();
 
-        System.out.println(actualResults);
+        System.out.println(Arrays.toString(actualResults));
     }
 }

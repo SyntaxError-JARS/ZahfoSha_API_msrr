@@ -108,4 +108,45 @@ public class OrdersDao {
     }
 
 
+
+
+
+
+
+    public OrdersModel[] viewAllOrders(){
+        Connection conn = ConnectionFactory.getInstance().getConnection();
+
+        OrdersModel[] orders = new OrdersModel[20];
+
+        int index = 0;
+
+        try{
+            String sql = "select * from orders";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                OrdersModel modelOrder = new OrdersModel();
+
+                modelOrder.setId(rs.getInt("id"));
+                modelOrder.setMenuItem(rs.getString("menu_item"));
+                modelOrder.setComment(rs.getString("comment"));
+                modelOrder.setIsFavorite(rs.getInt("is_favorite"));
+                modelOrder.setOrderDate(rs.getString("order_date"));
+                modelOrder.setCustomerUsername(rs.getString("customer_username"));
+
+                orders[index] = modelOrder;
+                index++;
+
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        return orders;
+    }
+
+
 }

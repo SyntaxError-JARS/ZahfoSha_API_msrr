@@ -1,8 +1,10 @@
 package com.revature.zahfosha.customer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.zahfosha.menu.MenuDTO;
+import com.revature.zahfosha.menu.MenuModel;
 import com.revature.zahfosha.util.interfaces.Headable;
-
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +33,50 @@ public class CustomerServlet extends HttpServlet {
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-    }
+
+            CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
+
+        CustomerModel addedItem = cDao.createCustomer(pass.getUsername(), pass.getFName(), pass.getLName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin());
+        CustomerModel theItemObject = cDao.followUpCreateCustomer(pass.getUsername());
+
+            String payload = mapper.writeValueAsString(theItemObject);
+
+            resp.getWriter().write("Added the new customer, as seen below \n");
+            resp.getWriter().write(payload);
+            resp.setStatus(201);
+
+        }
 
     //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
+
+        CustomerModel firstResult = cDao.createCustomer(pass.getUsername(), pass.getFName(), pass.getLName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin());
+        CustomerModel theItemObject = cDao.followUpCreateCustomer(pass.getUsername());
+
+        String payload = mapper.writeValueAsString(theItemObject);
+
+        resp.getWriter().write("Updated the customer, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+
     }
 
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+//        addHeads(req, resp);
+        MenuDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
+
+        boolean deleteTrue = cDao.deleteByUsername(pass.getUsername());
+
+        String payload = mapper.writeValueAsString(deleteTrue);
+
+        resp.getWriter().write("Customer was deleted. See true below to verify \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
     }
 
 }

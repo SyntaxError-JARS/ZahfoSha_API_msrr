@@ -90,7 +90,7 @@ public class MenuDao {
                 fillInMenu.setMenuItem(rs.getString("menu_item"));
                 fillInMenu.setCost(rs.getBigDecimal("cost"));
                 fillInMenu.setProtein(rs.getString("protein"));
-                fillInMenu.getIsSubstitutable(rs.getInt("is_substitutable"));
+                fillInMenu.setIsSubstitutable(rs.getInt("is_substitutable"));
 
                 menuItems[index] = fillInMenu;
                 index++;

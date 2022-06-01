@@ -38,11 +38,43 @@ public class CustomerDao {
                 throw new RuntimeException();
             }
 
+            return followUpCreateCustomer(username);
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-        return null;
+    }
+
+    public CustomerModel followUpCreateCustomer(String username) {
+        Connection conn = ConnectionFactory.getInstance().getConnection();
+
+        try {
+            String sql = "select * from customer where customer_username = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                return null;
+            }
+
+            CustomerModel updatedCustomerAccount = new CustomerModel();
+
+            updatedCustomerAccount.setCustomerUsername(rs.getString("customer_username"));
+            updatedCustomerAccount.setfName(rs.getString("fname"));
+            updatedCustomerAccount.setlName(rs.getString("lname"));
+            updatedCustomerAccount.setPassword(rs.getString("password"));
+            updatedCustomerAccount.setBalance(rs.getBigDecimal("balance"));
+            updatedCustomerAccount.setIsAdmin(rs.getInt("is_admin"));
+
+            return updatedCustomerAccount;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public CustomerModel updateCustomer(String fname, String lname, String password, BigDecimal balance, String username) {

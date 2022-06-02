@@ -50,26 +50,26 @@ public class MenuServlet extends HttpServlet {
 
     }
 
-//    //UPDATE
-//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-////        addHeads(req, resp);
-//        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
-//
-//        MenuModel firstResult = mDao.updateMenu(pass.getCost(), pass.getProtein(), pass.getIsSubstitutable(), pass.getMenuItem());
-//        MenuModel theObject = mDao.followUPUpdateMenu(pass.getMenuItem());
-//
-//        String payload = mapper.writeValueAsString(theObject);
-//
-//        resp.getWriter().write("Updated the menu item, as seen below \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//    }
+
+
+    //UPDATE
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+
+        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
+
+        MenuModel theResults = mDao.updateMenu(pass.getMenuItem(), pass.getCost(), pass.getProtein(), pass.getIsSubstitutable());
+
+        String payload = mapper.writeValueAsString(theResults);
+
+        resp.getWriter().write("Updated the menu item, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+    }
 
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-
-//        String menuItemLocate = req.getParameter("menuItem");
 
         MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
 

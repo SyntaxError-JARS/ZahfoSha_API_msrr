@@ -66,31 +66,39 @@ public class MenuDao {
     }
 
 
-//
-//    //     MVP - Delete items to the menu
-//    public boolean deleteByMenuItem(String menuItem) {
-//        Connection conn = ConnectionFactory.getInstance().getConnection();{
-//            String sql = "delete from menu where menu_item = ?";
-//
-//            try {
-//                PreparedStatement ps = conn.prepareStatement(sql);
-//                ps.setString(1, menuItem);
-//
-//                int checkInsert = ps.executeUpdate();
-//
-//                if (checkInsert == 0){
-//                    throw new RuntimeException();
-//                }
-//
-//                return true;
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//        return false;
-//    }
-//
+    public MenuModel updateMenu(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable){
+        try {
+            MenuModel updatedMenuItem = new MenuModel(menuItem, cost, protein, isSubstitutable);
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.merge(updatedMenuItem);
+            transaction.commit();
+
+        } catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return followUpUpdateMenu(menuItem);
+    }
+
+    public MenuModel followUpUpdateMenu(String menuItem){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            MenuModel foundMenuItem = session.get(MenuModel.class, menuItem);
+            transaction.commit();
+            return foundMenuItem;
+        }catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
+
 //    //    // MVP - Update items to the menu
 //    public MenuModel updateMenu(BigDecimal cost, String protein, Integer isSubstitutable, String menuItem) {
 //        Connection conn = ConnectionFactory.getInstance().getConnection();

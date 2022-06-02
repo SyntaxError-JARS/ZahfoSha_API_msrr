@@ -1,9 +1,15 @@
 package com.revature.zahfosha.menu;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "menu")
 public class MenuModel {
 
+    @Id
     private String menuItem;
     private BigDecimal cost;
     private String protein;

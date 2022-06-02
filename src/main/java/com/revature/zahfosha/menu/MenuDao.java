@@ -17,11 +17,10 @@ import java.util.List;
 public class MenuDao {
 
     //    // MVP - Add items to the menu
-    public MenuModel createMenu(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable) {
+    public MenuModel createMenu(MenuModel newMenuItem) {
         try {
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            MenuModel newMenuItem = new MenuModel(menuItem, cost, protein, isSubstitutable);
             session.save(newMenuItem);
             transaction.commit();
             return newMenuItem;

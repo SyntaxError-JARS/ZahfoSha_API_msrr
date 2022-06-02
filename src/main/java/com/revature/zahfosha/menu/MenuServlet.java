@@ -32,8 +32,8 @@ public class MenuServlet extends HttpServlet {
 
         MenuModel addedItem;
         try {
-            MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
-            addedItem = mDao.createMenu(pass.getMenuItem(), pass.getCost(), pass.getProtein(), pass.getIsSubstitutable());
+            MenuModel newMenuItem = mapper.readValue(req.getInputStream(), MenuModel.class);
+            addedItem = mDao.createMenu(newMenuItem);
         }catch (InvalidRequestException e){
             resp.getWriter().write(e.getMessage());
             resp.setStatus(404);

@@ -2,6 +2,7 @@ package com.revature.zahfosha.menu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.zahfosha.util.exceptions.InvalidRequestException;
+import com.revature.zahfosha.util.exceptions.ResourcePersistenceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,7 @@ public class MenuServlet extends HttpServlet {
         try {
             MenuModel newMenuItem = mapper.readValue(req.getInputStream(), MenuModel.class);
             addedItem = mDao.createMenu(newMenuItem);
-        }catch (InvalidRequestException e){
+        } catch (InvalidRequestException e) {
             resp.getWriter().write(e.getMessage());
             resp.setStatus(404);
             return;
@@ -63,20 +64,34 @@ public class MenuServlet extends HttpServlet {
 //        resp.getWriter().write(payload);
 //        resp.setStatus(201);
 //    }
-//
-//    //DELETE
-//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-////        addHeads(req, resp);
-//        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
-//
-//        boolean deleteTrue = mDao.deleteByMenuItem(pass.getMenuItem());
-//
-//        String payload = mapper.writeValueAsString(deleteTrue);
-//
-//        resp.getWriter().write("Menu item was deleted. See true below to verify \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//    }
+
+    //DELETE
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+
+//        String menuItemLocate = req.getParameter("menuItem");
+
+        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
+
+
+        try {
+            boolean deletedMenuItem = mDao.deleteByMenuItem(pass.getMenuItem());
+
+            String payload = mapper.writeValueAsString(deletedMenuItem);
+
+            resp.getWriter().write("Delete menu item from the database, see true below ");
+            req.getSession().invalidate();
+            resp.getWriter().write(payload);
+            resp.setStatus(201);
+        } catch (ResourcePersistenceException e) {
+            resp.getWriter().write(e.getMessage());
+            resp.setStatus(404);
+        } catch (Exception e) {
+            resp.getWriter().write(e.getMessage());
+            resp.setStatus(500);
+        }
+
+    }
 
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

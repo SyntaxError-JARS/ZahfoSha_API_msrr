@@ -49,6 +49,22 @@ public class MenuDao {
     }
 
 
+    public boolean deleteByMenuItem(String menuItem){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            MenuModel deletedMenuItem = session.load(MenuModel.class, menuItem);
+            session.remove(deletedMenuItem);
+            transaction.commit();
+            return true;
+        } catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
 
 //
 //    //     MVP - Delete items to the menu

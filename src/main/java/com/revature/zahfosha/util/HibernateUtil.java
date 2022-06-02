@@ -1,6 +1,7 @@
 package com.revature.zahfosha.util;
 
 
+import com.revature.zahfosha.menu.MenuModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -18,13 +19,27 @@ public class HibernateUtil {
     public static Session getSession() throws IOException {
         if(sessionFactory == null) {
             Configuration configuration = new Configuration();
-            Properties props = new Properties();
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            props.load(loader.getResourceAsStream("hibernate.properties"));
+//            Properties props = new Properties();
+//            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+//            props.load(loader.getResourceAsStream("hibernate.properties"));
 
-            configuration.setProperties(props);
+//            configuration.setProperties(props);
+
+            String url = System.getenv("SQLAZURECONNSTR_zahfosha");
+            String username = System.getenv("DBUSER");
+            String password = System.getenv("DBPASS");
+
+            configuration.setProperty("hibernate.connection.url", url);
+            configuration.setProperty("hibernate.connection.username", username);
+            configuration.setProperty("hibernate.connection.password", password);
+            configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+            configuration.setProperty("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            configuration.setProperty("hibernate.show_sql", "true");
+            configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+
+
             // TODO setup config with proper classes
-//            configuration.addAnnotatedClass(Trainer.class);
+            configuration.addAnnotatedClass(MenuModel.class);
 //            configuration.addAnnotatedClass(Pokemon.class);
 //            configuration.addAnnotatedClass(ElementType.class);
 //            configuration.addAnnotatedClass(Ability.class);

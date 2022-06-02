@@ -1,5 +1,6 @@
 package com.revature.zahfosha.menu;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,9 +11,11 @@ import java.math.BigDecimal;
 public class MenuModel {
 
     @Id
+    @Column(name = "menu_item")
     private String menuItem;
     private BigDecimal cost;
     private String protein;
+    @Column(name = "is_substitutable")
     private Integer isSubstitutable;
 
     public MenuModel(String menuItem, BigDecimal cost, String protein, Integer isSubstitutable) {

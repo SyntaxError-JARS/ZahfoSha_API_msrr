@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
 
@@ -76,18 +77,20 @@ public class MenuServlet extends HttpServlet {
 //        resp.getWriter().write(payload);
 //        resp.setStatus(201);
 //    }
-//
-//    //READ
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-////        addHeads(req, resp);
-//        MenuModel[] items = mDao.findAllMenuItems();
-//
-//        String payload = mapper.writeValueAsString(items);
-//
-//        resp.getWriter().write("Menu items populated, as seen below \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//
-//    }
+
+    //READ
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+
+
+        List<MenuModel> gotTheMenu = mDao.findAllMenuItems();
+
+        String payload = mapper.writeValueAsString(gotTheMenu);
+
+        resp.getWriter().write("Added the new menu item, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+
+    }
 
 }

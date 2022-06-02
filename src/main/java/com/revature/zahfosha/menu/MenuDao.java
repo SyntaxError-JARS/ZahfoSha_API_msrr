@@ -33,44 +33,23 @@ public class MenuDao {
     }
 
 
-//
-//
-//    //    // MVP - View all items on the menu without needing to Register or Login
-//    public MenuModel[] findAllMenuItems() throws IOException {
-//        Connection conn = ConnectionFactory.getInstance().getConnection();
-//
-//        MenuModel[] menuItems = new MenuModel[20];
-//
-//        int index = 0;
-//
-//        try {
-//            String sql = "select * from menu";
-//            Statement s = conn.createStatement();
-//
-//            ResultSet rs = s.executeQuery(sql);
-//
-//            while (rs.next()) {
-//
-//                MenuModel fillInMenu = new MenuModel();
-//
-//                fillInMenu.setMenuItem(rs.getString("menu_item"));
-//                fillInMenu.setCost(rs.getBigDecimal("cost"));
-//                fillInMenu.setProtein(rs.getString("protein"));
-//                fillInMenu.setIsSubstitutable(rs.getInt("is_substitutable"));
-//
-//                menuItems[index] = fillInMenu;
-//                index++;
-//
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//
-//        return menuItems;
-//
-//    }
+    public List<MenuModel> findAllMenuItems(){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            List<MenuModel> allMenuItemsList = session.createQuery("FROM MenuModel").list();
+            transaction.commit();
+            return allMenuItemsList;
+        }catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
+
+
 //
 //    //     MVP - Delete items to the menu
 //    public boolean deleteByMenuItem(String menuItem) {

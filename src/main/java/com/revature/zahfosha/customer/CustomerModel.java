@@ -1,14 +1,28 @@
 package com.revature.zahfosha.customer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "customer")
 public class CustomerModel {
 
+    @Id
+    @Column(name = "customer_username")
     private String customerUsername;
+    @Column(name = "fname")
     private String fName;
+    @Column(name = "lname")
     private String lName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private BigDecimal balance;
+    @Column(name = "is_admin")
     private Integer isAdmin;
 
     public CustomerModel(String customerUsername, String fName, String lName, String password, BigDecimal balance, Integer isAdmin) {
@@ -78,7 +92,6 @@ public class CustomerModel {
                 "customerUsername='" + customerUsername + '\'' +
                 ", fName='" + fName + '\'' +
                 ", lName='" + lName + '\'' +
-                ", password='" + "*********" + '\'' +       //TODO here it is in case we need to change it later
                 ", balance=" + balance +
                 ", isAdmin=" + isAdmin +
                 '}';

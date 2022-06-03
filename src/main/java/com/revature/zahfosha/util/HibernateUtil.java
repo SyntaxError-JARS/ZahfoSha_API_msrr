@@ -1,6 +1,7 @@
 package com.revature.zahfosha.util;
 
 
+import com.revature.zahfosha.customer.CustomerModel;
 import com.revature.zahfosha.menu.MenuModel;
 import com.revature.zahfosha.orders.OrdersModel;
 import org.hibernate.Session;
@@ -42,7 +43,7 @@ public class HibernateUtil {
             // TODO setup config with proper classes
             configuration.addAnnotatedClass(MenuModel.class);
             configuration.addAnnotatedClass(OrdersModel.class);
-//            configuration.addAnnotatedClass(ElementType.class);
+            configuration.addAnnotatedClass(CustomerModel.class);
 //            configuration.addAnnotatedClass(Ability.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

@@ -53,7 +53,7 @@ public class MenuModel {
         this.protein = protein;
     }
 
-    public Integer getIsSubstitutable(int is_substitutable) {
+    public Integer getIsSubstitutable() {
         return isSubstitutable;
     }
 

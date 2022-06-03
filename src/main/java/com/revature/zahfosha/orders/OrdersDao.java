@@ -36,7 +36,7 @@ public class OrdersDao {
         }
     }
 
-
+        // MVP - View past orders by date
     public List<OrdersModel> viewAllByDate(){
         try{
             Session session = HibernateUtil.getSession();
@@ -51,45 +51,6 @@ public class OrdersDao {
             HibernateUtil.closeSession();
         }
     }
-//
-//    // MVP - View past orders by date
-//    public OrdersModel[] viewAllByDate(String theDate){
-//        Connection conn = ConnectionFactory.getInstance().getConnection();
-//
-//        OrdersModel[] orders = new OrdersModel[20];
-//
-//        int index = 0;
-//
-//        try{
-//            String sql = "select * from orders where order_date = ?";
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//
-//            ps.setString(1, theDate);
-//
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                OrdersModel modelOrder = new OrdersModel();
-//
-//                modelOrder.setId(rs.getInt("id"));
-//                modelOrder.setMenuItem(rs.getString("menu_item"));
-//                modelOrder.setComment(rs.getString("comment"));
-//                modelOrder.setIsFavorite(rs.getInt("is_favorite"));
-//                modelOrder.setOrderDate(rs.getString("order_date"));
-//                modelOrder.setCustomerUsername(rs.getString("customer_username"));
-//
-//                orders[index] = modelOrder;
-//                index++;
-//
-//            }
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return orders;
-//    }
-//
-//
+
 
 }

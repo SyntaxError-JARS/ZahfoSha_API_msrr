@@ -16,10 +16,12 @@ import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
 public class MenuServlet extends HttpServlet {
 
     private final MenuDao mDao;
+    private final MenuServices mServ;
     private final ObjectMapper mapper;
 
-    public MenuServlet(MenuDao mDao, ObjectMapper mapper) {
+    public MenuServlet(MenuDao mDao, MenuServices mServ, ObjectMapper mapper) {
         this.mDao = mDao;
+        this.mServ = mServ;
         this.mapper = mapper;
     }
 
@@ -35,7 +37,7 @@ public class MenuServlet extends HttpServlet {
         MenuModel addedItem;
         try {
             MenuModel newMenuItem = mapper.readValue(req.getInputStream(), MenuModel.class);
-            addedItem = mDao.createMenu(newMenuItem);
+            addedItem = mServ.create(newMenuItem);
         } catch (InvalidRequestException e) {
             resp.getWriter().write(e.getMessage());
             resp.setStatus(404);

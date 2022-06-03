@@ -16,10 +16,12 @@ import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
 public class OrdersServlet extends HttpServlet {
 
     private final OrdersDao oDao;
+    private final OrdersServices oServ;
     private final ObjectMapper mapper;
 
-    public OrdersServlet(OrdersDao oDao, ObjectMapper mapper) {
+    public OrdersServlet(OrdersDao oDao, OrdersServices oServ, ObjectMapper mapper) {
         this.oDao = oDao;
+        this.oServ = oServ;
         this.mapper = mapper;
     }
 
@@ -35,7 +37,7 @@ public class OrdersServlet extends HttpServlet {
         OrdersModel addedOrder;
         try {
             OrdersModel newOrder = mapper.readValue(req.getInputStream(), OrdersModel.class);
-            addedOrder =oDao.createCustomOrder(newOrder);
+            addedOrder =oServ.create(newOrder);
         } catch (InvalidRequestException e){
             resp.getWriter().write(e.getMessage());
             resp.setStatus(404);

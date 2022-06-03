@@ -2,6 +2,7 @@ package com.revature.zahfosha.util;
 
 
 import com.revature.zahfosha.menu.MenuModel;
+import com.revature.zahfosha.orders.OrdersModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -40,7 +41,7 @@ public class HibernateUtil {
 
             // TODO setup config with proper classes
             configuration.addAnnotatedClass(MenuModel.class);
-//            configuration.addAnnotatedClass(Pokemon.class);
+            configuration.addAnnotatedClass(OrdersModel.class);
 //            configuration.addAnnotatedClass(ElementType.class);
 //            configuration.addAnnotatedClass(Ability.class);
 

@@ -1,12 +1,24 @@
 package com.revature.zahfosha.orders;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "orders")
 public class OrdersModel {
 
+    @Id
     private Integer id;
+    @Column(name = "menu_item")
     private String menuItem;
     private String comment;
+    @Column(name = "is_favorite")
     private Integer isFavorite;
+    @Column(name = "order_date")
     private String orderDate;
+    @Column(name = "customer_username")
     private String customerUsername;
 
     public OrdersModel(Integer id, String menuItem, String comment, Integer isFavorite, String orderDate, String customerUsername) {

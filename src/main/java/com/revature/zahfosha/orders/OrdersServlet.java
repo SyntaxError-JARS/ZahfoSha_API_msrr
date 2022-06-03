@@ -53,11 +53,10 @@ public class OrdersServlet extends HttpServlet {
     //READ
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
-        OrdersDTO pass = mapper.readValue(req.getInputStream(), OrdersDTO.class);
 
-        List<OrdersModel> orders = oDao.viewAllByDate(pass.getOrderDate());
+        List<OrdersModel> gotDates = oDao.viewAllByDate();
 
-        String payload = mapper.writeValueAsString(orders);
+        String payload = mapper.writeValueAsString(gotDates);
 
         resp.getWriter().write("Orders populated, as seen below \n");
         resp.getWriter().write(payload);

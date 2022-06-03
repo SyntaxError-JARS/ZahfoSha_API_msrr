@@ -37,12 +37,11 @@ public class OrdersDao {
     }
 
 
-    public List<OrdersModel> viewAllByDate(String orderDate){
+    public List<OrdersModel> viewAllByDate(){
         try{
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            String jpql = "SELECT o FROM OrdersModel o WHERE o.orderDate = :param1";
-            List<OrdersModel> ordersFoundByDate = em.createQuery(jpql, OrdersModel.class).setParameter("param1", orderDate).getResultList();
+            List<OrdersModel> ordersFoundByDate = session.createQuery("FROM OrdersModel").list();
             transaction.commit();
             return ordersFoundByDate;
         }catch (HibernateException | IOException e){

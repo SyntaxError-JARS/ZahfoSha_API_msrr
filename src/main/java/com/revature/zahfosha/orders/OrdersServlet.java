@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
 
@@ -49,18 +50,18 @@ public class OrdersServlet extends HttpServlet {
 
     }
 
-//    //READ
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-////        addHeads(req, resp);
-//        OrdersDTO pass = mapper.readValue(req.getInputStream(), OrdersDTO.class);
-//
-//        OrdersModel[] orders = oDao.viewAllByDate(pass.getTheDate());
-//
-//        String payload = mapper.writeValueAsString(orders);
-//
-//        resp.getWriter().write("Orders populated, as seen below \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//    }
+    //READ
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+        OrdersDTO pass = mapper.readValue(req.getInputStream(), OrdersDTO.class);
+
+        List<OrdersModel> orders = oDao.viewAllByDate(pass.getOrderDate());
+
+        String payload = mapper.writeValueAsString(orders);
+
+        resp.getWriter().write("Orders populated, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+    }
 
 }

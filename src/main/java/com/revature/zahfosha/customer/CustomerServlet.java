@@ -74,17 +74,17 @@ public class CustomerServlet extends HttpServlet {
     }
 
     //DELETE
-//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        addHeads(req, resp);
-//        CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
-//
-//        boolean deleteTrue = cDao.deleteCustomer(pass.getUsername());
-//
-//        String payload = mapper.writeValueAsString(deleteTrue);
-//
-//        resp.getWriter().write("Customer was deleted. See true below to verify \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//    }
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+        CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
+
+        boolean deleteTrue = cDao.deleteByCustomerUsername(pass.getCustomerUsername());
+
+        String payload = mapper.writeValueAsString(deleteTrue);
+
+        resp.getWriter().write("Customer was deleted. See true below to verify \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+    }
 
 }

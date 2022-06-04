@@ -1,15 +1,29 @@
 package com.revature.zahfosha.creditcard;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "credit_card")
 public class CreditCardModel {
 
+    @Id
+    @Column(name = "cc_number")
     private String ccNumber;
+    @Column(name = "cc_name")
     private String ccName;
-    private Integer cvv;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer cvv; // this aka CSC it is a card security code and should be kept secret
+    @Column(name = "exp_date")
     private String expDate;
     private Integer zip;
     private BigDecimal limits;
+    @Column(name = "customer_username")
     private String customerUsername;
 
     public CreditCardModel(String ccNumber, String ccName, Integer cvv, String expDate, Integer zip, BigDecimal limits, String customerUsername) {
@@ -88,7 +102,6 @@ public class CreditCardModel {
         return "CreditCardModel{" +
                 "ccNumber='" + ccNumber + '\'' +
                 ", ccName='" + ccName + '\'' +
-                ", cvv=" + cvv +
                 ", expDate='" + expDate + '\'' +
                 ", zip=" + zip +
                 ", limit=" + limits +

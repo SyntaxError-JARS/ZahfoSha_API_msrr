@@ -1,6 +1,7 @@
 package com.revature.zahfosha.util;
 
 
+import com.revature.zahfosha.creditcard.CreditCardModel;
 import com.revature.zahfosha.customer.CustomerModel;
 import com.revature.zahfosha.menu.MenuModel;
 import com.revature.zahfosha.orders.OrdersModel;
@@ -40,11 +41,10 @@ public class HibernateUtil {
             configuration.setProperty("hibernate.hbm2ddl.auto", "update");
 
 
-            // TODO setup config with proper classes
             configuration.addAnnotatedClass(MenuModel.class);
             configuration.addAnnotatedClass(OrdersModel.class);
             configuration.addAnnotatedClass(CustomerModel.class);
-//            configuration.addAnnotatedClass(Ability.class);
+            configuration.addAnnotatedClass(CreditCardModel.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

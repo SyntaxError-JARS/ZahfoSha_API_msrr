@@ -25,6 +25,7 @@ public class CustomerModel {
     @Column(name = "is_admin")
     private Integer isAdmin;
 
+
     public CustomerModel(String customerUsername, String fName, String lName, String password, BigDecimal balance, Integer isAdmin) {
         this.customerUsername = customerUsername;
         this.fName = fName;

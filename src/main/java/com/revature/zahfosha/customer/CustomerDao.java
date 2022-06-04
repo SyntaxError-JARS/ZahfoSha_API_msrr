@@ -38,64 +38,40 @@ public class CustomerDao {
         }
     }
 
-//    public CustomerModel createCustomer(String username, String fname, String lname, String password, BigDecimal balance, Integer isAdmin) {
-//        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
-//
-//            String sql = "Insert into customer values (?, ?, ?, ?, ?, ?)";
-//
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//
-//            ps.setString(1, username);
-//            ps.setString(2, fname);
-//            ps.setString(3, lname);
-//            ps.setString(4, password);
-//            ps.setBigDecimal(5, balance);
-//            ps.setInt(6, isAdmin);
-//
-//            int checkInsert = ps.executeUpdate();
-//
-//            if (checkInsert == 0) {
-//                throw new RuntimeException();
-//            }
-//
-//            return followUpCreateCustomer(username);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
-//    public CustomerModel followUpCreateCustomer(String username) {
-//        Connection conn = ConnectionFactory.getInstance().getConnection();
-//
-//        try {
-//            String sql = "select * from customer where customer_username = ?";
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setString(1, username);
-//
-//            ResultSet rs = ps.executeQuery();
-//
-//            if (!rs.next()) {
-//                return null;
-//            }
-//
-//            CustomerModel updatedCustomerAccount = new CustomerModel();
-//
-//            updatedCustomerAccount.setCustomerUsername(rs.getString("customer_username"));
-//            updatedCustomerAccount.setfName(rs.getString("fname"));
-//            updatedCustomerAccount.setlName(rs.getString("lname"));
-//            updatedCustomerAccount.setPassword(rs.getString("password"));
-//            updatedCustomerAccount.setBalance(rs.getBigDecimal("balance"));
-//            updatedCustomerAccount.setIsAdmin(rs.getInt("is_admin"));
-//
-//            return updatedCustomerAccount;
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+
+    public CustomerModel updateCustomer(String customerUsername, String fName, String lName, String password, BigDecimal balance, Integer isAdmin){
+        try {
+            CustomerModel updatedCustomer = new CustomerModel(customerUsername, fName, lName, password, balance, isAdmin);
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.merge(updatedCustomer);
+            transaction.commit();
+
+        } catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+        return followUpUpdateCustomer(customerUsername);
+    }
+
+    public CustomerModel followUpUpdateCustomer(String customerUsername){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            CustomerModel foundCustomer = session.get(CustomerModel.class, customerUsername);
+            transaction.commit();
+            return foundCustomer;
+        }catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
+
 
 //    public CustomerModel updateCustomer(String fname, String lname, String password, BigDecimal balance, String username) {
 //        Connection conn = ConnectionFactory.getInstance().getConnection();

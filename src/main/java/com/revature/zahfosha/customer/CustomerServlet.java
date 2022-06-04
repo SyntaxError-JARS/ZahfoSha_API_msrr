@@ -58,20 +58,20 @@ public class CustomerServlet extends HttpServlet {
     }
 
     //UPDATE
-//    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        addHeads(req, resp);
-//
-//        CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
-//
-//        CustomerModel theResults = cDao.updateCustomer(pass.getFName(), pass.getLName(), pass.getPassword(), pass.getBalance(), pass.getUsername());
-//
-//        String payload = mapper.writeValueAsString(theResults);
-//
-//        resp.getWriter().write("Updated the customer, as seen below \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//
-//    }
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+
+        CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
+
+        CustomerModel theResults = cDao.updateCustomer(pass.getCustomerUsername(), pass.getfName(), pass.getlName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin());
+
+        String payload = mapper.writeValueAsString(theResults);
+
+        resp.getWriter().write("Updated the customer, as seen below \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+
+    }
 
     //DELETE
 //    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

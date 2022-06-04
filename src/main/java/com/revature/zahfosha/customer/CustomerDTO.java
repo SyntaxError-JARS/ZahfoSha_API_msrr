@@ -4,35 +4,35 @@ import java.math.BigDecimal;
 
 public class CustomerDTO {
 
-    private String username;
+    private String customerUsername;
     private String fName;
     private String lName;
     private String password;
     private BigDecimal balance;
     private Integer isAdmin;
 
-    public String getUsername() {
-        return username;
+    public String getCustomerUsername() {
+        return customerUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCustomerUsername(String customerUsername) {
+        this.customerUsername = customerUsername;
     }
 
-    public String getFName() {
+    public String getfName() {
         return fName;
     }
 
-    public void setFName(String fname) {
-        this.fName = fname;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
-    public String getLName() {
+    public String getlName() {
         return lName;
     }
 
-    public void setLName(String lname) {
-        this.lName = lname;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
     public String getPassword() {

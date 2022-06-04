@@ -65,31 +65,21 @@ public class CreditCardDao {
         }
     }
 
-
-    //    // MVP - delete credit card
-//    public boolean deleteByCCNumber(String ccNumber) {
-//        Connection conn = ConnectionFactory.getInstance().getConnection();{
-//            String sql = "delete from credit_card where cc_number = ?";
-//
-//            try {
-//                PreparedStatement ps = conn.prepareStatement(sql);
-//                ps.setString(1, ccNumber);
-//
-//                int checkInsert = ps.executeUpdate();
-//
-//                if (checkInsert == 0){
-//                    throw new RuntimeException();
-//                }
-//
-//                return true;
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//        return false;
-//    }
-
+    public boolean deleteCreditCardByCCNumber(String ccNumber) {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            CreditCardModel deletedCreditCard = session.load(CreditCardModel.class, ccNumber);
+            session.remove(deletedCreditCard);
+            transaction.commit();
+            return true;
+        } catch (HibernateException | IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
 
 
 }

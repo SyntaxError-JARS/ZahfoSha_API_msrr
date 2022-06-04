@@ -66,17 +66,17 @@ public class CreditCardServlet extends HttpServlet {
     }
 
     //DELETE
-//    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        addHeads(req, resp);
-//        CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
-//
-//        boolean deleteTrue = cDao.deleteByCCNumber(pass.getCcNumber());
-//
-//        String payload = mapper.writeValueAsString(deleteTrue);
-//
-//        resp.getWriter().write("Account was deleted, see true near bottom to verify \n");
-//        resp.getWriter().write(payload);
-//        resp.setStatus(201);
-//    }
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addHeads(req, resp);
+        CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
+
+        boolean deleteTrue = cDao.deleteCreditCardByCCNumber(pass.getCcNumber());
+
+        String payload = mapper.writeValueAsString(deleteTrue);
+
+        resp.getWriter().write("Account was deleted, see true near bottom to verify \n");
+        resp.getWriter().write(payload);
+        resp.setStatus(201);
+    }
 
 }

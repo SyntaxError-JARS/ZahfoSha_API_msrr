@@ -1,5 +1,6 @@
 package com.revature.zahfosha.customer;
 
+import com.revature.zahfosha.util.exceptions.AuthenticationException;
 import com.revature.zahfosha.util.exceptions.InvalidRequestException;
 
 import java.math.BigDecimal;
@@ -29,6 +30,19 @@ public class CustomerServices {
         if (newCustomer.getBalance() == null) {return false;}
         if (newCustomer.getIsAdmin() != 0 && newCustomer.getIsAdmin() != 1){return false;}
         return true;
+    }
+
+    public CustomerModel authenticateAccount(String customerUsername, String password, Integer isAdmin){
+        if (customerUsername == null || customerUsername.trim().equals("") || password == null || password.trim().equals("")){
+            throw new InvalidRequestException("Either username or password is an invalid entry. Please try logging in again");
+        }
+
+        CustomerModel authenticatedAccount = cDao.authenticatingCustomerAccount(customerUsername, password, isAdmin);
+
+        if (authenticatedAccount == null){
+            throw new AuthenticationException("Unauthenticated user, information provided was not consistent with our database.");
+        }
+        return authenticatedAccount;
     }
 
 }

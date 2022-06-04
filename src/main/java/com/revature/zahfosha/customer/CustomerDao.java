@@ -10,6 +10,7 @@ import com.revature.zahfosha.util.interfaces.Crudable;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -84,6 +85,25 @@ public class CustomerDao {
             e.printStackTrace();
             return false;
         } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
+    public CustomerModel authenticatingCustomerAccount(String customerUsername, String password, Integer isAdmin){
+        try{
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Query query = session.createQuery("from Customer where customerUsername = :customerUsername and password = :password and isAdmin = :isAdmin");
+            query.setParameter("customerUsername", customerUsername);
+            query.setParameter("password", password);
+            query.setParameter("isAdmin", isAdmin);
+            CustomerModel customer = (CustomerModel) query.uniqueResult();
+            transaction.commit();
+            return customer;
+        }catch (HibernateException | IOException e){
+            e.printStackTrace();
+            return null;
+        }finally {
             HibernateUtil.closeSession();
         }
     }

@@ -93,7 +93,7 @@ public class CustomerDao {
         try{
             Session session = HibernateUtil.getSession();
             Transaction transaction = session.beginTransaction();
-            Query query = session.createQuery("from Customer where customerUsername = :customerUsername and password = :password and isAdmin = :isAdmin");
+            Query query = session.createQuery("from CustomerModel where customerUsername = :customerUsername and password = :password and isAdmin = :isAdmin");
             query.setParameter("customerUsername", customerUsername);
             query.setParameter("password", password);
             query.setParameter("isAdmin", isAdmin);

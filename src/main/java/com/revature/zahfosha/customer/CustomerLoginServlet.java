@@ -46,14 +46,16 @@ public class CustomerLoginServlet extends HttpServlet {
             resp.getWriter().write(payload);
             resp.setStatus(201);
         }
-        HttpSession httpSession = req.getSession(true);
-        httpSession.setAttribute("authAccount", authCustomer);
+        else {
+            HttpSession httpSession = req.getSession(true);
+            httpSession.setAttribute("authAccount", authCustomer);
 
-        String payload = mapper.writeValueAsString(authCustomer);
+            String payload = mapper.writeValueAsString(authCustomer);
 
-        resp.getWriter().write("Customer was authenticated as a Customer \n");
-        resp.getWriter().write(payload);
-        resp.setStatus(201);
+            resp.getWriter().write("Customer was authenticated as a Customer \n");
+            resp.getWriter().write(payload);
+            resp.setStatus(201);
+        }
     }
 
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

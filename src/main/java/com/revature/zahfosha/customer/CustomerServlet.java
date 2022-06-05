@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import static com.revature.zahfosha.util.interfaces.AdminAuthable.checkAdminAuth;
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
+import static com.revature.zahfosha.util.interfaces.NormalAuthable.checkAuth;
 
 public class CustomerServlet extends HttpServlet {
 
@@ -38,7 +40,6 @@ public class CustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
-
         CustomerModel addedCustomer;
         try {
             CustomerModel newCustomer = mapper.readValue(req.getInputStream(), CustomerModel.class);
@@ -61,6 +62,8 @@ public class CustomerServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
+        if(!checkAuth(req, resp)){return;}
+
         CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
 
         CustomerModel theResults = cDao.updateCustomer(pass.getCustomerUsername(), pass.getfName(), pass.getlName(), pass.getPassword(), pass.getBalance(), pass.getIsAdmin());
@@ -76,6 +79,9 @@ public class CustomerServlet extends HttpServlet {
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
+
         CustomerDTO pass = mapper.readValue(req.getInputStream(), CustomerDTO.class);
 
         boolean deleteTrue = cDao.deleteByCustomerUsername(pass.getCustomerUsername());

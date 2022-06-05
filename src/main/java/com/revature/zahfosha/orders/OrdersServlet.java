@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
+import static com.revature.zahfosha.util.interfaces.NormalAuthable.checkAuth;
 
 public class OrdersServlet extends HttpServlet {
 
@@ -33,6 +34,8 @@ public class OrdersServlet extends HttpServlet {
 //    //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
 
         OrdersModel addedOrder;
         try {

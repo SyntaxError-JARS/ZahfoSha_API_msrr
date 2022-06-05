@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
+import static com.revature.zahfosha.util.interfaces.NormalAuthable.checkAuth;
 
 public class CreditCardServlet extends HttpServlet {
 
@@ -34,6 +35,8 @@ public class CreditCardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
+        if(!checkAuth(req, resp)){return;}
+
         CreditCardModel addedCreditCard;
         try {
             CreditCardModel newCreditCard = mapper.readValue(req.getInputStream(), CreditCardModel.class);
@@ -54,6 +57,9 @@ public class CreditCardServlet extends HttpServlet {
     //UPDATE
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
+
         CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
 
         CreditCardModel firstResult = cDao.updateCreditCard(pass.getCcNumber(), pass.getCcName(), pass.getCvv(), pass.getExpDate(), pass.getZip(), pass.getLimits(), pass.getCustomerUsername());
@@ -68,6 +74,9 @@ public class CreditCardServlet extends HttpServlet {
     //DELETE
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAuth(req, resp)){return;}
+
         CreditCardDTO pass = mapper.readValue(req.getInputStream(), CreditCardDTO.class);
 
         boolean deleteTrue = cDao.deleteCreditCardByCCNumber(pass.getCcNumber());

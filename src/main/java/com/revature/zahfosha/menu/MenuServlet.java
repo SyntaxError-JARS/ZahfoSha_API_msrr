@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.revature.zahfosha.util.interfaces.AdminAuthable.checkAdminAuth;
 import static com.revature.zahfosha.util.interfaces.Headable.addHeads;
 
 public class MenuServlet extends HttpServlet {
@@ -33,6 +34,8 @@ public class MenuServlet extends HttpServlet {
     //CREATE
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
+
+        if(!checkAdminAuth(req, resp)){return;}
 
         MenuModel addedItem;
         try {
@@ -58,6 +61,8 @@ public class MenuServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
+        if(!checkAdminAuth(req, resp)){return;}
+
         MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
 
         MenuModel theResults = mDao.updateMenu(pass.getMenuItem(), pass.getCost(), pass.getProtein(), pass.getIsSubstitutable());
@@ -73,8 +78,9 @@ public class MenuServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addHeads(req, resp);
 
-        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
+        if(!checkAdminAuth(req, resp)){return;}
 
+        MenuDTO pass = mapper.readValue(req.getInputStream(), MenuDTO.class);
 
         try {
             boolean deletedMenuItem = mDao.deleteByMenuItem(pass.getMenuItem());

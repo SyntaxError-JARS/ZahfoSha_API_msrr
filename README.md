@@ -39,5 +39,5 @@ My Restaurant app was developed for a small restaurant that is looking to help s
 
 
 ## Collaborators 
-- Romaine Robb
+- Romane Robb
 - Matthew Swaney

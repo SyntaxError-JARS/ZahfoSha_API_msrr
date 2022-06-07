@@ -3,7 +3,7 @@
 This is the p1 project by Matthew Swaney and Romane Robb.
 
 # Description
-The purpose of this web application is to create and deliver a uniformed restaurant experience through an attractive user interface for our customers and an intuitive back-end for our admins. This repository is to for all of our front-end files.
+My Restaurant app was developed for a small restaurant that is looking to help streamline the ordering process for customers to help reduce costs. Customers can enjoy an seamless means to order directly with an account of their own at the restaurant in question, where Admins are capable of adding and updating the menu items. This RESTful application leverages a tomcat server to handle incoming requests to thoroughly tested services that must be persisted using Hibernate and Azure SQL services. This project includes a front-end that will be developed using ReactJS to handle user requests.
 
 # User Stories
 
@@ -36,3 +36,8 @@ The purpose of this web application is to create and deliver a uniformed restaur
 -   [ ] Java EE Servlet API (v4.0+)
 -   [ ] Azure SQL
 -   [ ] Git SCM (on GitHub)
+
+
+## Collaborators 
+-Romaine Robb
+-Matthew Swaney
